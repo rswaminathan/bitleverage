@@ -1,0 +1,21 @@
+
+    <p> Current positions </p>
+    <table id="positions">
+        <tr>
+            <th> Name</th>
+            <th> Type </th>
+            <th> Amount </th>
+            <th> Market Value </th>
+            <th> Total </th>
+        </tr>
+        <% current_user.positions.each do |t| %>
+            <% i = t.instrument.classify.constantize.find(t.instrument_id) %>
+            <tr> 
+                <td><%=link_to i.name, i %></td>
+                <td><%=t.typ %> </td>
+                <td><%=t.amount%> </td>
+                <td><%=i.value %> </td>
+                <td><%=i.value * t.amount%> </td>
+            </tr>
+        <% end %>
+    </table>

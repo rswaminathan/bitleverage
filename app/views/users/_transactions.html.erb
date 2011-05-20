@@ -1,0 +1,21 @@
+
+    <p> Last 5 transactions </p>
+    <table id="log">
+        <tr>
+            <th> Name</th>
+            <th> Type </th>
+            <th> Amount </th>
+            <th> Price </th>
+            <th> Total </th>
+        </tr>
+        <% current_user.bought.each do |t| %>
+            <% i = t.instrument.classify.constantize.find(t.instrument_id) %>
+            <tr> 
+                <td><%=link_to i.name, i%></td>
+                <td><%=t.typ %> </td>
+                <td><%=t.amount%> </td>
+                <td><%=t.price%> </td>
+                <td><%=t.price * t.amount%> </td>
+            </tr>
+        <% end %>
+    </table>

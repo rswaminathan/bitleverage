@@ -1,0 +1,20 @@
+<h2>Available currencies:</h2>
+
+<table id="currencies">
+    <tr>
+        <th> Name </th>
+        <th> Best bid </th>
+        <th> Best Ask </th>
+        <th> Last price </th>
+        <th> Trade </th>
+    </tr>
+    <% @currencies.each do |c| %>
+        <tr>
+            <td> <%= link_to "BTC/#{c.name.upcase}", c %> </td>
+            <td> <%= c.best_bid %> </td>
+            <td> <%= c.best_ask %> </td>
+            <td> <%= c.value %> </td>
+            <td> <%= link_to "Trade", new_trade_path(:i => "currency", :id => c.id) %>
+        </tr>
+    <% end %>
+</table>

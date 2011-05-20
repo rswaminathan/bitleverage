@@ -1,0 +1,48 @@
+<div id="options">
+    <p>BTC Options List</p>
+
+    <h4> View other expiration months: </h4>
+    <% (6..12).each do |m| %>
+        <%= link_to "#{Date::MONTHNAMES[m]} 2011", options_expires_path("2011", m) %>
+    <% end %>
+
+    <h3> Call Options </h3>
+    <table>
+        <tr>
+            <th> Strike </th>
+            <th>  Symbol </th>
+            <th>  Bid </th>
+            <th>  Ask </th>
+            <th>  Open Interest </th>
+        </tr>
+        <% @options.calls.each do |o|%>
+            <tr>
+                <td> <%= o.strike %> </td>
+                <td> <%= link_to o.name, o %> </td>
+                <td> <%= o.best_bid %> </td>
+                <td> <%= o.best_ask %> </td>
+                <td> <%= o.open_interest %> </td>
+            </tr>
+        <% end %>
+        </table>
+
+    <h3> Put Options </h3>
+    <table>
+        <tr>
+            <th> Strike </th>
+            <th>  Symbol </th>
+            <th>  Bid </th>
+            <th>  Ask </th>
+            <th>  Open Interest </th>
+        </tr>
+        <% @options.puts.each do |o|%>
+            <tr>
+                <td> <%= o.strike %> </td>
+                <td> <%= link_to o.name, o %> </td>
+                <td> <%= o.best_bid %> </td>
+                <td> <%= o.best_ask %> </td>
+                <td> <%= o.open_interest %> </td>
+            </tr>
+        <% end %>
+        </table>
+    </div>

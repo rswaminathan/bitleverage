@@ -1,0 +1,10 @@
+<form action="https://mtgox.com/merch/checkout" method="post" > 
+    <input type="hidden" name="notify_url" value="<%= root_url + "/notify" %>"> 
+    <input type="hidden" name="business" value="Your MtGox Username"> 
+    <input type="hidden" name="currency_code" value="USD">  
+    <input type="hidden" name="item_name" value="Your Item Name">
+    <input type="hidden" name="custom" value="<%= current_user.id %>" >
+    <input type="hidden" name="amount" value="10.30"> 
+    <input type="hidden" name="return" value="<%= root_url + "/add_funds" %>">
+    <input type="submit" value="Pay with Mt Gox" /> 
+</form>

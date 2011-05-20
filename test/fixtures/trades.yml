@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  typ: MyString
+  price: 9.99
+  amount: 1
+  order: MyString
+
+two:
+  typ: MyString
+  price: 9.99
+  amount: 1
+  order: MyString
+
+# == Schema Information
+#
+# Table name: trades
+#
+#  id            :integer         not null, primary key
+#  typ           :string(255)
+#  price         :decimal(, )
+#  amount        :integer
+#  order         :string(255)
+#  instrument    :string(255)
+#  instrument_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  user_id       :integer
+#
+

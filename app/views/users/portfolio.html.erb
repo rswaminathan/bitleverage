@@ -1,0 +1,10 @@
+<div id="portfolio">
+    <p>BTC Balance: <%= @portfolio.funds %> BTC</p>
+    <p>Value of positions: <%= @portfolio.value %> BTC</p>
+
+    <%= render :partial => "pending" %>
+    <%= render :partial => "positions" %>
+    <%= render :partial => "transactions" %>
+
+
+</div>

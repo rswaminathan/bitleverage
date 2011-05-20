@@ -1,0 +1,22 @@
+
+<h2> Place order </h2>
+<h3> Order details: 
+    <%= "BTC/USD " %><br>
+</h3>
+
+
+<div id="trade_form" class="span-12 last">
+    <%= semantic_form_for @trade do |f| %>
+        <%= f.inputs do %>
+            <%= f.input :typ, :as => :radio, :collection => [["buy", "bid"],["sell", "ask"]], :label => "Transaction type" %>
+            <%= f.input :price , :hint => "In BTC"%>
+            <%= f.input :amount, :hint => "The amount of USD you wish to buy/sell"%>
+            <%= f.input :instrument_id, :value => @instrument.id, :as => :hidden %>
+            <%= f.input :instrument, :as => :hidden, :value => @instrument.class.name %>
+        <% end %>
+
+        <%= f.buttons do %>
+            <%= f.commit_button %>
+        <% end %>
+    <% end %>
+</div>

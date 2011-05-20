@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  value: 9.99
+
+two:
+  name: MyString
+  value: 9.99
+
+# == Schema Information
+#
+# Table name: currencies
+#
+#  id            :integer         not null, primary key
+#  name          :string(255)
+#  value         :decimal(, )
+#  created_at    :datetime
+#  updated_at    :datetime
+#  open_interest :integer         default(0)
+#
+

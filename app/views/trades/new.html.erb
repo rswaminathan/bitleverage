@@ -1,0 +1,27 @@
+
+<h2> Place order </h2>
+<h3> Order details: 
+    <%= "BTC/USD" %> <%= "#{@instrument.strike} #{@instrument.typ.classify} Option." if @instrument.class == Option %><br>
+    <% if @instrument.class == Option %>
+        <%= "Expiration: #{@instrument.expiration}" %><br>
+    <% end %>
+        <%= "Best Bid: #{@instrument.best_bid}" %><br>
+        <%= "Best Ask: #{@instrument.best_ask}" %><br>
+</h3>
+
+
+<div id="trade_form" class="span-12 last">
+    <%= semantic_form_for @trade do |f| %>
+        <%= f.inputs do %>
+            <%= f.input :typ, :as => :radio, :collection => [["buy", "bid"],["sell", "ask"]], :label => "Transaction type" %>
+            <%= f.input :price, :hint => "All prices are in BTC."%>
+            <%= f.input :amount, :hint => get_option_hint(@instrument)%>
+            <%= f.input :instrument_id, :value => @instrument.id, :as => :hidden %>
+            <%= f.input :instrument, :as => :hidden, :value => @instrument.class.name %>
+        <% end %>
+
+        <%= f.buttons do %>
+            <%= f.commit_button %>
+        <% end %>
+    <% end %>
+</div>

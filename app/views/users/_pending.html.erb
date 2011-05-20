@@ -1,0 +1,23 @@
+<p> Pending Orders </p>
+<table id="orders">
+    <tr>
+        <th> Name</th>
+        <th> Type </th>
+        <th> Amount </th>
+        <th> Price </th>
+        <th> Total </th>
+        <th> Action </th>
+    </tr>
+    <% current_user.trades.each do |t| %>
+        <% i = t.instrument.classify.constantize.find(t.instrument_id) %>
+        <tr> 
+            <td><%=link_to i.name, i %></td>
+            <td><%=t.typ %> </td>
+            <td><%=t.amount%> </td>
+            <td><%=t.price%> </td>
+            <td><%=t.price * t.amount%> </td>
+            <td><%= link_to "Edit", edit_trade_path(t) %> | <%= link_to "Cancel", trade_path(t), :confirm => "Are you
+                sure you want to cancel the pending order?", :method => :delete %>
+            </tr>
+        <% end %>
+    </table>
