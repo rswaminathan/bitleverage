@@ -8,7 +8,7 @@
             <input type="hidden" name="notify_url" value="<%= root_url + "/notify" %>"> 
             <input type="hidden" name="business" value="bitoptions"> 
             <input type="hidden" name="currency_code" value="BTC">  
-            <input type="hidden" name="item_name" value="BitOptions Account Funding for <%= current_user.email %>">
+            <input type="hidden" name="item_name" value="BitLeverage Account Funding for <%= current_user.email %>">
             <input type="hidden" name="custom" value="<%= current_user.id %>" >
             <input type="hidden" name="amount" value="<%= p %>"> 
             <input type="hidden" name="return" value="<%= root_url + "/add_funds" %>">
