@@ -14,7 +14,7 @@ Market::Application.routes.draw do
   resources :futures
   match "options/expires/:year/:month" => "options#expires", :as => :options_expires
   match "/account_funding" => "users#account_funding", :as => :account_funding
-  match "/notify" => "users#notify"
+  match "/notify" => "users#notify", :as => :mtgox_notify
 
 
   resources :trades
