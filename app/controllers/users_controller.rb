@@ -18,7 +18,7 @@ class UsersController < ApplicationController
             if cc == "USD"
                 c = Currency.find_by_name("USD")
                 portfolio =  user.portfolio.positions.find_or_create_by_instrument("Currency") {|p| p.instrument_id = c.id}
-                portfolio.increment!(:amount, amount.to_i)
+                portfolio.increment!(:amount, amount.to_d)
             elsif cc == "BTC"
                 user.portfolio.funds.increment!(amount)
             end
