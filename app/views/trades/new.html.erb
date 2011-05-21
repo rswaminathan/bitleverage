@@ -5,8 +5,8 @@
     <% if @instrument.class == Option %>
         <%= "Expiration: #{@instrument.expiration}" %><br>
     <% end %>
-        <%= "Best Bid: #{@instrument.best_bid}" %><br>
-        <%= "Best Ask: #{@instrument.best_ask}" %><br>
+    <%= "Best Bid: #{@instrument.best_bid}" %><br>
+    <%= "Best Ask: #{@instrument.best_ask}" %><br>
 </h3>
 
 
@@ -20,8 +20,38 @@
             <%= f.input :instrument, :as => :hidden, :value => @instrument.class.name %>
         <% end %>
 
+        <div id="margin_required">
+            <label> Margin Required: </label><p> Please enter amount to calculate margin. </p>
+        </div>
         <%= f.buttons do %>
             <%= f.commit_button %>
         <% end %>
     <% end %>
 </div>
+<% if @instrument.class == Option %>
+    <%= javascript_tag do %>
+        $("#trade_form input[id='trade_typ_bid']").click(function(){
+            $("#margin_required").hide();
+            });
+        $("#trade_form input[id='trade_typ_ask']").click(function(){
+                $("#margin_required").show();
+                domath();
+            });
+
+        $("#trade_amount").keyup(domath);
+
+        <% if @instrument.typ == "call" %>
+            function domath(){
+            if ($("#trade_form input[type='radio']:checked").val() == "ask"){
+            $('#margin_required p').html($("#trade_amount").val() + " USD");
+            }
+            }
+        <% elsif @instrument.typ == "put" %>
+            function domath(){
+            if ($("#trade_form input[type='radio']:checked").val() == "ask"){
+            $('#margin_required p').html($("#trade_amount").val()*<%= @instrument.strike %> + " BTC");
+            }
+            }
+        <% end %>
+    <% end %>
+<% end %>

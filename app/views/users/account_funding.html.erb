@@ -1,0 +1,42 @@
+
+<div class="span-12">
+    <h3> Add Funds:</h3>
+    <h4> Funds can be added from an existing MtGox account </h4>
+
+    <% [1, 5, 10, 20, 50, 100, 200].each do |p| %>
+        <form action="https://mtgox.com/merch/checkout" method="post" > 
+            <input type="hidden" name="notify_url" value="<%= root_url + "/notify" %>"> 
+            <input type="hidden" name="business" value="bitoptions"> 
+            <input type="hidden" name="currency_code" value="BTC">  
+            <input type="hidden" name="item_name" value="Bitoptions account funding">
+            <input type="hidden" name="custom" value="<%= current_user.id %>" >
+            <input type="hidden" name="amount" value="<%= p %>"> 
+            <input type="hidden" name="return" value="<%= root_url + "/add_funds" %>">
+            <input type="submit" value="Add <%= p  %>BTC from Mt Gox" /> 
+        </form>
+        <br>
+    <% end %>
+</div>
+
+<div class="span-12 last">
+    <h3> Withdraw funds: </h3>
+    <h4>Withdrawal can be made to a MtGox account, or to a Bitcoin address:</h4>
+    <div id="withdraw_details">
+        Current account funds:  <%= current_user.portfolio.funds %> BTC <br>
+        Amount available to withdraw: <%=  current_user.portfolio.funds - current_user.portfolio.funds_in_margin %> BTC
+    </div>
+
+
+
+    <%= semantic_form_for @withdrawal do |f| %>
+        <%= f.inputs "Withdraw to BitCoin address" do %>
+            <p> BitCoin withdrawals might take anywhere from 10-60 minutes to show up in your account.  </p>
+            <%= f.input :typ, :label => "Withdraw to:", :as => :radio, :collection => [["MtGox account", "mtgox"], ["Bitcoin address", "bitcoin"]] %>
+            <%= f.input :address, :hint => "Mtgox username or BitCoin address" %>
+            <%= f.input :funds, :hint => "Amount to withdraw (BTC)" %>
+        <% end %>
+        <%= f.buttons do %>
+            <%= f.commit_button "Withdraw" %>
+        <% end %>
+    <% end %>
+</div>

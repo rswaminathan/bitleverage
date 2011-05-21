@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     # Include default devise modules. Others available are:
     # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
     has_one :portfolio
+    has_many :withdrawal_requests
     has_many :bought, :class_name => 'Transaction', :foreign_key => "buyer_id"
     has_many :sold, :class_name => 'Transaction', :foreign_key => "seller_id"
     has_many :trades
@@ -16,10 +17,9 @@ class User < ActiveRecord::Base
     delegate :create_or_update_position, :to => :portfolio
     delegate :remove_from_position, :to => :portfolio
     
-    #Asynchronous with delayed job
 
-    def add_or_create_position(trade)
-    end
+    after_save :create_portfolio
+    #Asynchronous with delayed job
 
     def make_currency_trade(trade)
         instrument = trade.instrument.classify.constantize.find(trade.instrument_id)
@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
         else
             "Invalid instrument "
         end
+        #spawn tradeexecutor in new thread
     end
 
 
@@ -91,6 +92,13 @@ class User < ActiveRecord::Base
                 end
             end
         end
+    end
+
+
+    private
+
+    def create_portfolio
+        portfolio.create!(:funds => 0.0)
     end
 
 end

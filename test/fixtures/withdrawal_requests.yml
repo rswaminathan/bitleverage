@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  funds: 9.99
+  typ: MyString
+  address: MyString
+  user_id: 1
+
+two:
+  funds: 9.99
+  typ: MyString
+  address: MyString
+  user_id: 1

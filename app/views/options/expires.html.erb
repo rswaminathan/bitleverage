@@ -1,10 +1,15 @@
 <div id="options">
-    <p>BTC Options List</p>
+    <h2>BTC/USD Options </h2>
 
     <h4> View other expiration months: </h4>
-    <% (6..12).each do |m| %>
-        <%= link_to "#{Date::MONTHNAMES[m]} 2011", options_expires_path("2011", m) %>
+    <div id="options_other_months">
+    <% [5,6,7,9,12].each do |m| %>
+        <%= link_to "#{Date::MONTHNAMES[m]} 2011", options_expires_path("2011", m) %> |
     <% end %>
+    <% [3, 6].each do |m| %>
+        <%= link_to "#{Date::MONTHNAMES[m]} 2012", options_expires_path("2012", m) %> |
+    <% end %>
+    </div>
 
     <h3> Call Options </h3>
     <table>

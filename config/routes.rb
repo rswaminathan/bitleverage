@@ -9,9 +9,11 @@ Market::Application.routes.draw do
   match 'portfolio' => "users#portfolio", :as => :portfolio
   match 'faq' => "pages#faq"
   resources :options
+  resources :withdrawal_requests
   resources :currencies
+  resources :futures
   match "options/expires/:year/:month" => "options#expires", :as => :options_expires
-  match "/add_funds" => "users#add_funds", :as => :add_funds
+  match "/account_funding" => "users#account_funding", :as => :account_funding
   match "/notify" => "users#notify"
 
 

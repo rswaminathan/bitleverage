@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-    before_filter :authenticate_user!, :only =>[:portfolio]
+    before_filter :authenticate_user!, :only =>[:portfolio, :account_funding]
 
     def portfolio
         @portfolio = current_user.portfolio
     end
 
-    def add_funds
+    def account_funding
+        @withdrawal = WithdrawalRequest.new
     end
 
     def notify

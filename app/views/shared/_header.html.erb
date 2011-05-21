@@ -1,8 +1,23 @@
 <div id="header">
-    <%= link_to "Home", root_path %> |
-    <%= link_to "Options", options_path %> |
-    <%= link_to "Currency Exchange", currencies_path %> |
-    <%= link_to "Portfolio", portfolio_path %> | 
-    <%= link_to "Add Funds", add_funds_path %> |
-    <%= link_to "FAQ", faq_path %>
-</div>"
+    <div class="container">
+        <div class="span-8"> 
+            <div class="span-8 last title">BitOptions</div>
+            <div class="span-8 last desc">A bitcoin derivatives market.</div>
+        </div>
+        <div class="span-16 last">
+            <%= link_to "Home", root_path %> |
+            <%= link_to "Options", options_path %> |
+            <%= link_to "Futures", futures_path %> |
+            <%= link_to "Currencies", currencies_path %> |
+            <%= link_to "FAQ", faq_path %> |
+            <% if user_signed_in? %>
+                <%= link_to "Portfolio", portfolio_path , :class => "special"%> | 
+                <%= link_to "Account Funds", account_funding_path , :class => "special"%> |
+                <%= link_to "Sign Out", destroy_user_session_path , :class => "special"%>
+            <% else %>
+                <%= link_to "Log In", new_user_session_path, :class => "special"%> |
+                <%= link_to "Sign Up", new_user_registration_path, :class => "special"%>
+            <% end %>
+        </div>
+    </div>
+</div>

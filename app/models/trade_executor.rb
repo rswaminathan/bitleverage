@@ -50,38 +50,46 @@ class TradeExecutor
             if valid_option_ask!(ask) && valid_option_bid!(bid)
                 #which one is more
                 if bid.amount > ask.amount
+                    ActiveRecord::Base.transaction do
                     bid.user.create_or_update_position(ask.amount, @instrument, @instrument_id, "bid")
                     bid.user.portfolio.decrement!(:funds,sale_price*ask.amount)
                     ask.user.remove_from_position(ask.amount, @instrument, @instrument_id, "ask")
                     ask.user.portfolio.increment!(:funds,sale_price*ask.amount)
                     bid.decrement!(:amount, ask.amount)
                     ask.destroy
+                    end
                 else
+                    ActiveRecord::Base.transaction do
                     bid.user.create_or_update_position(bid.amount, @instrument, @instrument_id, "bid")
                     bid.user.portfolio.decrement!(:funds,sale_price*ask.amount)
                     ask.user.remove_from_position(bid.amount, @instrument, @instrument_id, "ask")
                     ask.user.portfolio.increment!(:funds,sale_price*ask.amount)
                     ask.decrement!(:amount, bid.amount)
                     bid.destroy
+                    end
                     #TODO: what if they are equal?
                 end
             end
         elsif @instrument == "Currency"
             if can_buy_usd!(bid) && can_sell_usd!(ask)
                 if bid.amount > ask.amount
+                    ActiveRecord::Base.transaction do
                     bid.user.create_or_update_position(ask.amount, @instrument, @instrument_id)
                     bid.user.portfolio.decrement!(:funds,sale_price*ask.amount)
                     ask.user.remove_from_position(bid.amount, @instrument, @instrument_id)
                     ask.user.portfolio.increment!(:funds,sale_price*ask.amount)
                     bid.decrement!(:amount, ask.amount)
                     ask.destroy
+                    end
                 else
+                    ActiveRecord::Base.transaction do
                     bid.user.create_or_update_position(bid.amount, @instrument, @instrument_id)
                     bid.user.portfolio.decrement!(:funds,sale_price*ask.amount)
                     ask.user.remove_from_position(bid.amount, @instrument, @instrument_id)
                     ask.user.portfolio.increment!(:funds,sale_price*ask.amount)
                     ask.decrement!(:amount, bid.amount)
                     bid.destroy
+                    end
                 end
             end
         end
