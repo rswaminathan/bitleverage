@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     delegate :remove_from_position, :to => :portfolio
     
 
-    after_save :create_portfolio
+    after_create :create_portfolio
     #Asynchronous with delayed job
 
     def make_currency_trade(trade)
@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
     private
 
     def create_portfolio
-        create_portfolio(:funds => 0.0)
+        Portfolio.create!(:user_id => id, :funds => 0.0)
     end
 
 end
