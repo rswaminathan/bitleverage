@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        request = Net::HTTP::Post.new(uri.request_uri, {'txn_id' => txn_id, 'merchID' => merch_id, 'amount' => amount})
+        request = Net::HTTP::Post.new(uri.request_uri, {'txn_id' => txn, 'merchID' => merch_id, 'amount' => amount})
 
         response = http.request(request)
         response.body
