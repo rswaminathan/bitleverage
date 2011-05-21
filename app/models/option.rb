@@ -2,7 +2,9 @@ class Option < ActiveRecord::Base
     default_scope order('expiration asc')
     scope :puts, where(:typ => 'put')
     scope :calls, where(:typ => 'call')
-    scope :expires_at, lambda { |year, month| where(:expiration => Time.utc(year, month)..(Time.utc(year,month+1)-1.second)) }
+    scope :expires_at, lambda { |year, month| month < 12 ? 
+        where(:expiration => Time.utc(year, month)..(Time.utc(year,month+1)-1.second)) :
+        where(:expiration => Time.utc(year, month)..(Time.utc(year+1,1)-1.second)) }
 
     has_many :transactions, :foreign_key => "instrument_id", :conditions => {:instrument => "Option"}
     has_many :trades, :foreign_key => "instrument_id", :conditions => {:instrument => "Option"}
