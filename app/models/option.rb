@@ -1,5 +1,7 @@
 class Option < ActiveRecord::Base
     default_scope order('expiration asc')
+
+    scope :by_strike, order('strike asc')
     scope :puts, where(:typ => 'put')
     scope :calls, where(:typ => 'call')
     scope :expires_at, lambda { |year, month| month < 12 ? 

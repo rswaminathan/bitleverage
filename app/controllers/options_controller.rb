@@ -7,7 +7,7 @@ class OptionsController < ApplicationController
     def expires
         year = params[:year].to_i
         month = params[:month].to_i
-        @options = Option.expires_at(year, month)
+        @options = Option.by_strike.expires_at(year, month)
     end
 
     def show
