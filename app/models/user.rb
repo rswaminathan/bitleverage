@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
     private
 
     def create_portfolio
-        portfolio.create!(:funds => 0.0)
+        create_portfolio(:funds => 0.0)
     end
 
 end
