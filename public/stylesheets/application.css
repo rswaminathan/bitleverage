@@ -19,8 +19,9 @@
     color: #0a0
 }
 
-#header .title{
-    padding-left: 1.3em;
+#header .title a{
+    text-decoration: none;
+    padding-left: 1.8em;
     font-size: 1.4em;
     color: #fff;
 }

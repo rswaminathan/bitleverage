@@ -2,7 +2,7 @@ namespace :seed_orders do
 
     desc "Create options "
     task :options, [:year, :month, :current_exchange] => :environment do |t, args|
-        u = User.find(1)
+        u = User.first
         year = args.year.to_i
         month = args.month.to_i
         current_exchange = args.current_exchange.to_d

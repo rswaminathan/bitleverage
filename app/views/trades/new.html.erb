@@ -20,37 +20,83 @@
             <%= f.input :instrument, :as => :hidden, :value => @instrument.class.name %>
         <% end %>
 
-        <div id="margin_required">
-            <label> Margin Required: </label><p> Please enter amount to calculate margin. </p>
-        </div>
+        <% if @instrument.class == Option %>
+            <div id="margin_required">
+                <label> Margin Required: </label><p> Choose transaction type first. </p>
+            </div>
+        <% end %>
+            <div id="total_amount">
+                <label> </label><p>  </p>
+            </div>
+
         <%= f.buttons do %>
-            <%= f.commit_button %>
+            <%= f.commit_button "Execute Trade" %>
         <% end %>
     <% end %>
 </div>
+
+<% if @instrument.class == Currency %>
+    <% javascript_tag do %>
+
+        $("#trade_form input[id='trade_typ_bid']").click(function(){
+            display_total("Total: ");
+            $("#trade_price").keyup(function(){
+                display_total("Total: ");
+            });
+        });
+
+        $("#trade_form input[id='trade_typ_ask']").click(function(){
+            display_total("Total received: ");
+            $("#trade_amount").keyup(function(){
+                display_total("Total received: ");
+            });
+        });
+
+        function display_total(label){
+                $("#total_amount label").html(label);
+                $("#total_amount p").html($("#trade_amount").val()*$("#trade_price").val() + " BTC");
+        }
+    <% end %>
+<% end %>
+
 <% if @instrument.class == Option %>
     <%= javascript_tag do %>
         $("#trade_form input[id='trade_typ_bid']").click(function(){
             $("#margin_required").hide();
+            display_total("Total: ");
+            $("#trade_amount").keyup(function(){
+                display_total("Total: ");
             });
-        $("#trade_form input[id='trade_typ_ask']").click(function(){
-                $("#margin_required").show();
-                domath();
+            $("#trade_price").keyup(function(){
+                display_total("Total: ");
             });
+        });
 
-        $("#trade_amount").keyup(domath);
+        $("#trade_form input[id='trade_typ_ask']").click(function(){
+            $("#margin_required").show();
+            display_total("Premium recieved: ");
+            $("#trade_amount").keyup(function(){
+                display_total("Premium recieved: ");
+            });
+            $("#trade_price").keyup(function(){
+                display_total("Premium recieved: ");
+            });
+        });
+
+        function display_total(label){
+            $("#total_amount label").html(label);
+            $("#total_amount p").html($("#trade_amount").val()*$("#trade_price").val() + " BTC");
+            domath();
+        }
+
 
         <% if @instrument.typ == "call" %>
             function domath(){
-            if ($("#trade_form input[type='radio']:checked").val() == "ask"){
             $('#margin_required p').html($("#trade_amount").val() + " USD");
-            }
             }
         <% elsif @instrument.typ == "put" %>
             function domath(){
-            if ($("#trade_form input[type='radio']:checked").val() == "ask"){
             $('#margin_required p').html($("#trade_amount").val()*<%= @instrument.strike %> + " BTC");
-            }
             }
         <% end %>
     <% end %>
