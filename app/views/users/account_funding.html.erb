@@ -29,7 +29,7 @@
 
 
     <%= semantic_form_for @withdrawal do |f| %>
-        <%= f.inputs "Withdraw to BitCoin address" do %>
+        <%= f.inputs "Withdraw funds" do %>
             <p> BitCoin withdrawals might take anywhere from 10-60 minutes to show up in your account.  </p>
             <%= f.input :typ, :label => "Withdraw to:", :as => :radio, :collection => [["MtGox account", "mtgox"], ["Bitcoin address", "bitcoin"]] %>
             <%= f.input :address, :hint => "Mtgox username or BitCoin address" %>
