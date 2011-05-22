@@ -33,6 +33,7 @@ class UsersController < ApplicationController
         request = Net::HTTP::Post.new(uri.request_uri, {'txn_id' => txn, 'merchID' => merch_id, 'amount' => amount})
 
         response = http.request(request)
+        puts response.body
         response.body
     end
 
