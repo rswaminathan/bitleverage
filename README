@@ -2,7 +2,7 @@
 Bitcoin derivatives market
 ---------------
 
-Still in beta. Everything works in the model
+Still in beta. Everything works mostly as intended.
 
 There a few rake tasks to seed options/futures creation with a given premium.
 
