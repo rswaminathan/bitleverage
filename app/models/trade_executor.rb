@@ -43,7 +43,9 @@ class TradeExecutor
         end
     end
 
+    #bid and ask are both trades
     def execute(bid, ask)
+      #don't prefer buyer or seller
         sale_price = (bid.price + ask.price)/2
         if @instrument == "Option"
             #if selling, either have position, or margin requirements, else delete
@@ -112,5 +114,4 @@ class TradeExecutor
             false
         end
     end
-
 end
